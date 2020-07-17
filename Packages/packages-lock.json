@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.mirrorng.mirrorng": {
+      "version": "https://github.com/MirrorNG/MirrorNG.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "nuget.mono-cecil": "0.1.6-preview"
+      },
+      "hash": "6e5a98bd21c63a00294effbd385cd35837c424c5"
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
@@ -64,6 +73,13 @@
       "dependencies": {
         "com.unity.modules.ui": "1.0.0"
       }
+    },
+    "nuget.mono-cecil": {
+      "version": "0.1.6-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
