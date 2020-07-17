@@ -6,13 +6,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float holdDelay;
-
-    [SerializeField]
-    private Vector3 movementVector;
-    [SerializeField]
     private float movementScale;
+    [SerializeField]
+    private float holdDelay;    
 
+    private Vector3 movementVector;
     private float timeSincePress;
 
     private void Update()
