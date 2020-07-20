@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder (-1000)]
 public class Wasty : MonoBehaviour
 {
     private void MyMethod()
