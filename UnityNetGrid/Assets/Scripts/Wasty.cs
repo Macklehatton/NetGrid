@@ -2,25 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// [InitializeOnLoad]
-public class Wasty
+public class Wasty : MonoBehaviour
 {
-    static Wasty()
+    private void MyMethod()
     {
         // EditorApplication.update += Update;
         Debug.Log("Initializing");
     }
 
-    static void Update()
-    {
-        Debug.Log("Updating");
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        MyMethod();
     }
-
 }
