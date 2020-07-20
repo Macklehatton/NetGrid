@@ -10,9 +10,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField]
     private float holdDelay;    
 
-    //private Vector3 movementVector;
     private float timeSincePress;
-
 
     private void Update()
     {
