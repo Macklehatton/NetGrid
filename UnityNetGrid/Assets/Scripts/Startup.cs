@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder (-1000)]
-public class Wasty : MonoBehaviour
+public class Startup : MonoBehaviour
 {
     private void MyMethod()
     {
@@ -15,5 +15,7 @@ public class Wasty : MonoBehaviour
     void Start()
     {
         MyMethod();
+        var go = new GameObject();
+        // GameObject.CreatePrimitive(PrimitiveType.Cube);
     }
 }
