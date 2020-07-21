@@ -8,13 +8,13 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField]
     private float movementScale;
     [SerializeField]
-    private float holdDelay;    
+    private float holdDelay;
 
     private float timeSincePress;
 
-    private void Update()
+    private void Start()
     {
-        if (!IsLocalPlayer)
+        if (IsLocalPlayer == false)
         {
             Camera camera = GetComponentInChildren<Camera>();
 
@@ -22,7 +22,14 @@ public class PlayerMovement : NetworkBehaviour
             {
                 camera.gameObject.SetActive(false);
             }
+            return;
+        }
+    }
 
+    private void Update()
+    {
+        if (IsLocalPlayer == false)
+        {
             return;
         }
 
@@ -41,5 +48,5 @@ public class PlayerMovement : NetworkBehaviour
                 timeSincePress = 0.0f;
             }
         }
-    }
+    }    
 }
