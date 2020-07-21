@@ -445,6 +445,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1256950027}
   - component: {fileID: 1256950028}
+  - component: {fileID: 1256950030}
+  - component: {fileID: 1256950029}
+  - component: {fileID: 1256950031}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -478,6 +481,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654fea8734ad1e44cb261b46e24d338e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1256950029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256950026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f828f0ca8f052489f24f26bed1c551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &1256950030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256950026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1702441566
+  serverOnly: 0
+  m_AssetId: 
+  OnStartServer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartClient:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartLocalPlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartAuthority:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopAuthority:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopClient:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopServer:
+    m_PersistentCalls:
+      m_Calls: []
+  hasSpawned: 0
+--- !u!114 &1256950031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256950026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5dfdd65f64cc4b9f6c95a6bbef2d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &1668892213
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,8 +746,8 @@ GameObject:
   - component: {fileID: 1893788388}
   - component: {fileID: 1893788387}
   - component: {fileID: 1893788386}
-  - component: {fileID: 1893788385}
   - component: {fileID: 1893788384}
+  - component: {fileID: 1893788385}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -712,7 +780,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1893788383}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7aaac73a16c040fd871cb977b5c557b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bc8b10a5aef80648b20dc575947fcf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   client: {fileID: 1893788388}
