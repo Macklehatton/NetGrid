@@ -6,11 +6,11 @@ using Mirror;
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField]
-    private float movementScale;
+    private float speed;
     [SerializeField]
-    private float holdDelay;
+    private float sprintSpeed;
 
-    private float timeSincePress;
+    private float currentSpeed;
 
     private void Start()
     {
@@ -33,20 +33,20 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
 
-        timeSincePress += Time.deltaTime;
+        if (Input.GetButton("Sprint"))
+        {
+            currentSpeed = sprintSpeed;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
 
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
 
-        Vector3 movementVector = new Vector3(moveX, 0.0f, moveY);
+        Vector3 movementVector = new Vector3(moveX, 0.0f, moveY).normalized;
 
-        if (timeSincePress > holdDelay)
-        {
-            if (movementVector != Vector3.zero)
-            {
-                transform.position += movementVector * movementScale;
-                timeSincePress = 0.0f;
-            }
-        }
+        transform.position += transform.TransformDirection(movementVector) * currentSpeed * Time.deltaTime;
     }    
 }
