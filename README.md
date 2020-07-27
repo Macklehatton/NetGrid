@@ -4,6 +4,7 @@
 
 - Git LFS
 - Unity 2019.4.4f1
+- [mysql-connector-java-8.0.19.jar](https://downloads.mysql.com/archives/c-j/) ugh...
 
 
 ## Getting Started
