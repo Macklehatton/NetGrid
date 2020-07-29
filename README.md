@@ -18,3 +18,19 @@ Edit -> Project Settings -> Input Manager -> Vertical -> Gravity = Infinity
 Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 ```
 
+## Deployment
+
+###### What do we even deploy?
+
+- MySql Database Server (on k8s)
+- Java API (on k8s)
+- Mirror Server (on k8s)
+
+## Provision
+
+###### What do we even need to provision?
+
+- DNS Routes
+- Liquibase tables/ data to MySql server
+
+
