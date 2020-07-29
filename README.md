@@ -26,11 +26,41 @@ Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 - Java API (on k8s)
 - Mirror Server (on k8s)
 
+##### MySql Server Deployment
+
+###### Conduct Deployment
+
+```
+pushd charts/helm-mysql && \
+  helm upgrade --install --wait --atomic netgrid-mysql-dev . && \
+  popd
+```
+
+###### Export MySql variables from K8S
+
+```
+export K8S_NAMESPACE=default
+export RELEASE=netgrid-mysql-dev
+
+export MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace ${K8S_NAMESPACE} ${RELEASE} -o jsonpath="{.data.mysql-root-password}" | base64 -D; echo)
+export MYSQL_HOST=$(kubectl get nodes --namespace ${K8S_NAMESPACE} -o jsonpath='{.items[0].status.addresses[0].address}')
+export MYSQL_PORT=$(kubectl get svc --namespace ${K8S_NAMESPACE} ${RELEASE} -o jsonpath='{.spec.ports[0].nodePort}')
+
+echo "This settings file has secrets!
+
+export MYSQL_ROOT_PASSWORD='$MYSQL_ROOT_PASSWORD'
+export MYSQL_HOST='$MYSQL_HOST'
+export MYSQL_PORT='$MYSQL_PORT'
+" > .env
+```
+
+
 ## Provision
 
 ###### What do we even need to provision?
 
 - DNS Routes
 - Liquibase tables/ data to MySql server
+
 
 
