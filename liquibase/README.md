@@ -6,32 +6,20 @@ For references, see:
   - https://www.liquibase.org/documentation/tutorials/mysql.html
 
 
-###### Spin up MySQL
-
-```
-cd ../charts/helm-mysql/
-
-helm upgrade -i helm-mysql-dev .
-```
-
 ###### Access MySQL
 
 ```
-#MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default helm-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
-#MYSQL_HOST=$(kubectl get nodes --namespace default -o jsonpath='{.items[0].status.addresses[0].address}')
-#MYSQL_PORT=$(kubectl get svc --namespace default helm-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
-
-MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default helm-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
+MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default netgrid-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
 MYSQL_HOST=$(kubectl get nodes --namespace default -o jsonpath='{.items[0].status.addresses[0].address}')
-MYSQL_PORT=$(kubectl get svc --namespace default helm-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
+MYSQL_PORT=$(kubectl get svc --namespace default netgrid-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
 
 
-mysql -h helm-mysql-dev.default.svc.cluster.local -u root -p
+mysql -h netgrid-mysql-dev.default.svc.cluster.local -u root -p
 
 mysql -h ${MYSQL_HOST}:${MYSQL_PORT} -u root -p
 
 kubectl run --rm -i --tty ubuntu --image=registry.njax.org/destructocats/liquibase_client --restart=Never -- bash -il
-mysql -h helm-mysql-dev.default.svc.cluster.local -u root -p
+mysql -h netgrid-mysql-dev.default.svc.cluster.local -u root -p
 ```
 
 
@@ -48,9 +36,9 @@ docker push registry.njax.org/destructocats/liquibase_client
 ###### Run liquibase via binary
 
 ```
-MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default helm-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
+MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default netgrid-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
 MYSQL_HOST=$(kubectl get nodes --namespace default -o jsonpath='{.items[0].status.addresses[0].address}')
-MYSQL_PORT=$(kubectl get svc --namespace default helm-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
+MYSQL_PORT=$(kubectl get svc --namespace default netgrid-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
 
 liquibase \
   --driver=com.mysql.cj.jdbc.Driver \
@@ -72,7 +60,7 @@ docker run -it \
   /liquibase/liquibase \
   --driver=com.mysql.cj.jdbc.Driver \
   --classpath=/liquibase/jdbc/mysql-connector-java-8.0.19.jar \
-  --url="jdbc:mysql://helm-mysql-dev.default.svc.cluster.local:3306/mysql?createDatabaseIfNotExist=true" \
+  --url="jdbc:mysql://netgrid-mysql-dev.default.svc.cluster.local:3306/mysql?createDatabaseIfNotExist=true" \
   --changeLogFile=changelog.xml \
   --username=root \
   --password=$MYSQL_ROOT_PASSWORD \
@@ -85,7 +73,7 @@ docker run -it \
 /liquibase/liquibase \
   --driver=com.mysql.cj.jdbc.Driver \
   --classpath=/liquibase/jdbc/mysql-connector-java-8.0.19.jar \
-  --url="jdbc:mysql://helm-mysql-dev.default.svc.cluster.local:3306/mysql" \
+  --url="jdbc:mysql://netgrid-mysql-dev.default.svc.cluster.local:3306/mysql" \
   --changeLogFile=changelog.xml \
   --username=root \
   --password=$MYSQL_ROOT_PASSWORD \
@@ -95,9 +83,9 @@ docker run -it \
 ###### Update Database to match changelog
 
 ```
-MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default helm-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
+MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default netgrid-mysql-dev -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
 MYSQL_HOST=$(kubectl get nodes --namespace default -o jsonpath='{.items[0].status.addresses[0].address}')
-MYSQL_PORT=$(kubectl get svc --namespace default helm-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
+MYSQL_PORT=$(kubectl get svc --namespace default netgrid-mysql-dev -o jsonpath='{.spec.ports[0].nodePort}')
 
 liquibase \
   --url="jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/demo?createDatabaseIfNotExist=true" \
