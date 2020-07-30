@@ -1,0 +1,6 @@
+image: registry.njax.org/TriNetCo/NetGrid-java-api
+imageTag: latest
+hostname: "netgrid.njax.org"
+mysql_host: "netgrid-mysql-dev.default.svc.cluster.local"
+mysql_port: "3306"
+mysql_root_password: "PROVIDE_VIA_CLI"

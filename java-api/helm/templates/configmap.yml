@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{.Release.Name}}"
+data:
+  SERVER_ENV: "{{ .Values.app_env }}"
+  MYSQL_HOST: "{{ .Values.mysql_host }}"
+  MYSQL_PORT: "{{ .Values.mysql_port }}"

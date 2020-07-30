@@ -1,0 +1,2 @@
+include ":javaAppModels"
+project(":javaAppModels").projectDir = file("../java-app-models")

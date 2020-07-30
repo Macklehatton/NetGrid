@@ -1,0 +1,7 @@
+name: generic-webapp
+version: 0.0.1
+appVersion: 0.0.1
+home: https://gitlab.njax.org/trinetco/NetGrid
+description: meh
+sources:
+- https://gitlab.njax.org/trinetco/NetGrid

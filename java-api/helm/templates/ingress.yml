@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "{{.Release.Name}}"
+  annotations:
+    nginx.ingress.kubernetes.io/nickname: "Wooohoooooo we're here!!!"
+spec:
+  rules:
+  - host: "{{ .Values.hostname }}"
+    http:
+      paths:
+      - path: '/'
+        backend:
+          serviceName: "{{ .Release.Name }}"
+          servicePort: 8080

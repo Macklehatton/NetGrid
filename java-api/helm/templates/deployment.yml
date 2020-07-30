@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{.Release.Name}}"
+spec:
+  selector:
+    matchLabels:
+      app: "{{.Release.Name}}"
+  replicas: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: "{{.Release.Name}}"
+      annotations:
+        timestamp: "{{ date "20060102150405" .Release.Time }}"
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - name: "{{.Release.Name}}"
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: "0.5"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /version
+            port: 8080
+          initialDelaySeconds: 300
+          periodSeconds: 10
+        envFrom:
+        - secretRef:
+            name: "{{.Release.Name}}"
+        - configMapRef:
+            name: "{{.Release.Name}}"
