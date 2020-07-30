@@ -64,3 +64,14 @@ export MYSQL_PORT='$MYSQL_PORT'
 
 
 
+##### Liquibase table/ data provisioning
+
+```
+pushd liquibase && \
+  liquibase \
+    --url="jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/demo?createDatabaseIfNotExist=true" \
+    --password=$MYSQL_ROOT_PASSWORD \
+    update && \
+  popd
+```
+
