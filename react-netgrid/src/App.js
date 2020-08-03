@@ -1,6 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MyCounter from './MyCounter.js';
+
+const allUsers = [
+  {id: 1, name: "Mario", bio: "Great jumper", is_kind: true, created_at: "2012-01-01T00:31:50Z", updated_at: "2012-01-01T00:31:50Z"},
+  {id: 2, name: "Luigi", bio: "Another good jumper", is_kind: true, created_at: "2012-01-01T00:31:50Z", updated_at: "2012-01-01T00:31:50Z"},
+  {id: 3, name: "Bowser", bio: "Not such a jumper here", is_kind: true, created_at: "2012-01-01T00:31:50Z", updated_at: "2012-01-01T00:31:50Z"},
+];
 
 function App() {
   return (
@@ -10,14 +17,8 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <MyCounter />
       </header>
     </div>
   );
