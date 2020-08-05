@@ -1,3 +1,4 @@
+--liquibase formatted sql
 
 INSERT INTO users(id, name, bio, is_kind, created_at, updated_at)
      VALUES (
