@@ -16,7 +16,7 @@ MYSQL_PORT=$(kubectl get svc --namespace default netgrid-mysql-dev -o jsonpath='
 
 mysql -h netgrid-mysql-dev.default.svc.cluster.local -u root -p
 
-mysql -h ${MYSQL_HOST}:${MYSQL_PORT} -u root -p
+mysql -h ${MYSQL_HOST} -P ${MYSQL_PORT} -u root -p
 
 kubectl run --rm -i --tty ubuntu --image=registry.njax.org/destructocats/liquibase_client --restart=Never -- bash -il
 mysql -h netgrid-mysql-dev.default.svc.cluster.local -u root -p
@@ -91,4 +91,15 @@ liquibase \
   --url="jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/demo?createDatabaseIfNotExist=true" \
   --password=$MYSQL_ROOT_PASSWORD \
   update
+```
+
+
+###### Header for
+
+```
+--liquibase formatted sql
+--changeset author:me runAlways:true
+--preconditions onFail:HALT onError:HALT
+--validCheckSum any
+
 ```
