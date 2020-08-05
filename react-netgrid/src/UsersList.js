@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const allUsers = [
   {id: 1, name: "Mario", bio: "Great jumper", is_kind: true, created_at: "2012-01-01T00:31:50Z", updated_at: "2012-01-01T00:31:50Z"},
@@ -12,8 +13,6 @@ function User(props) {
     <>
       <li>
         {props.name}: {props.bio} <a href="#">show</a> <a href="#">delete</a>
-
-
       </li>
     </>
   );
