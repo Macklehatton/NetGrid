@@ -1,8 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MyCounter from './MyCounter.js';
-import UsersList from './UsersList.js';
 
 const allUsers = [
   {id: 1, name: "Mario", bio: "Great jumper", is_kind: true, created_at: "2012-01-01T00:31:50Z", updated_at: "2012-01-01T00:31:50Z"},
@@ -10,17 +6,29 @@ const allUsers = [
   {id: 3, name: "Bowser", bio: "Not such a jumper here", is_kind: true, created_at: "2012-01-01T00:31:50Z", updated_at: "2012-01-01T00:31:50Z"},
 ];
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
 
-        <MyCounter />
-        <UsersList />
-      </header>
-    </div>
+function User(props) {
+  return (
+    <>
+      <li>
+        {props.name}: {props.bio} <a href="#">show</a> <a href="#">delete</a>
+
+
+      </li>
+    </>
   );
 }
 
-export default App;
+function UsersList() {
+  return (
+    <>
+      <h3>Users (x{allUsers.length})</h3>
+      <a href="#">Add New</a>
+      <ul>
+        {allUsers.map( user => <User {...user} /> )}
+      </ul>
+    </>
+  );
+}
+
+export default UsersList;
