@@ -25,14 +25,14 @@ public class UserController {
     org.springframework.boot.info.BuildProperties buildProperties;
 
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewUser (@RequestParam String title,
-                                             @RequestParam String body) {
-        // @ResponseBody means the returned String is the response, not a view title
+    public @ResponseBody String addNewUser (@RequestParam String name,
+                                             @RequestParam String bio) {
+        // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
         UserEntity n = new UserEntity();
-        n.setTitle(title);
-        n.setBody(body);
+        n.setName(name);
+        n.setBio(bio);
         UserRepository.save(n);
         return "Saved";
     }
@@ -46,19 +46,12 @@ public class UserController {
     @GetMapping(value = "")
     public ResponseEntity<Object> root() {
         String responseString = "";
-        String artifactId = buildProperties.getArtifact();
-        String group = buildProperties.getGroup();
-        String version = buildProperties.getVersion();
-        org.njax.trinetco.netgrid.java.app.models.version.Version modelVersion = new org.njax.trinetco.netgrid.java.app.models.version.Version();
-        org.njax.trinetco.netgrid.java.api.version.Version appVersion = new org.njax.trinetco.netgrid.java.api.version.Version();
-
-        responseString += "Web App: " + appVersion.info() + "<br>\n";
-        responseString += "DB Models: " + modelVersion.info() + "<br>\n";
 
         responseString += "Count: " + UserRepository.count() + "<br>\n";
         responseString += "Cool, huh?" + "<br>\n";
 
         return new ResponseEntity<>(responseString, HttpStatus.OK);
+        // return UserRepository.findAll();
     }
 
 }
