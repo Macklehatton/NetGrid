@@ -2,7 +2,7 @@ package org.njax.trinetco.netgrid.java.app.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
@@ -15,12 +15,11 @@ public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "bio")
     private String bio;
+    private boolean isKind;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
 }
