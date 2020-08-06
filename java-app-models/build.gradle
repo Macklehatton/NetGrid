@@ -1,11 +1,15 @@
 buildscript {
   repositories {
     jcenter()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
   }
   dependencies {
     classpath "io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE"
     classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.16.1"
     classpath "org.springframework.boot:spring-boot-gradle-plugin:2.3.1.RELEASE"
+    classpath "io.freefair.gradle:lombok-plugin:5.1.1"
   }
 }
 
@@ -31,6 +35,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.freefair.lombok"
 
 
 mainClassName='org.njax.trinetco.netgrid.java.app.models.Main'

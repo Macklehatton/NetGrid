@@ -5,12 +5,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
+import lombok.*;
 
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    public UserEntity() { };
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,29 +23,4 @@ public class UserEntity implements Serializable {
 
     @Column(name = "bio")
     private String bio;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
 }
