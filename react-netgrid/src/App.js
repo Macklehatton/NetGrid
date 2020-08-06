@@ -18,6 +18,7 @@ function App() {
 
         <MyCounter />
         <UsersList />
+        <div>API_URL: {process.env.REACT_APP_API_URL} </div>
       </header>
     </div>
   );
