@@ -2,6 +2,7 @@ package org.njax.trinetco.netgrid.java.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.njax.trinetco.netgrid.java.app.models.UserRepository;
 import org.njax.trinetco.netgrid.java.app.models.UserEntity;
 
 @Controller // This means that this class is a Controller
+@CrossOrigin // enable cors
 @RequestMapping(path="/users")
 public class UserController {
     @Autowired // This means to get the bean called UserRepository
@@ -37,13 +39,13 @@ public class UserController {
         return "Saved";
     }
 
-    @GetMapping(path="/all")
+    @GetMapping(path="")
     public @ResponseBody Iterable<UserEntity> getAllUsers() {
         // This returns a JSON or XML with the users
         return UserRepository.findAll();
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/summary")
     public ResponseEntity<Object> root() {
         String responseString = "";
 
