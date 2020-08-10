@@ -1,10 +1,15 @@
 import React from 'react';
 
-function Button(props) {
+import { Button } from '@material-ui/core';
+
+function CountButton(props) {
   return (
-    <button onClick={props.onClickFunction}>
+    <Button
+      color="primary"
+      onClick={props.onClickFunction}
+    >
       +1
-    </button>
+    </Button>
   )
 }
 
@@ -22,7 +27,7 @@ function MyCounter() {
 
   return (
     <>
-      <Button onClickFunction={incrementCounter} />
+      <CountButton onClickFunction={incrementCounter} />
       <Display counter={counter} />
     </>
   );
