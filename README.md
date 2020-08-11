@@ -24,7 +24,7 @@ Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 
 - MySql Database Server (on k8s)
 - Java API (on k8s)
-- Mirror Server (on k8s)
+- Unity Server (Mirror) (on k8s)
 
 ##### MySql Server Deployment
 
@@ -32,7 +32,7 @@ Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 
 ```
 pushd charts/helm-mysql && \
-  helm upgrade --install --wait --atomic netgrid-mysql-dev . && \
+  helm upgrade --install --wait --atomic netgrid-mysql-dev . && \  
   popd
 ```
 
@@ -46,7 +46,7 @@ export MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace ${K8S_NAMESPACE} ${R
 export MYSQL_HOST=$(kubectl get nodes --namespace ${K8S_NAMESPACE} -o jsonpath='{.items[0].status.addresses[0].address}')
 export MYSQL_PORT=$(kubectl get svc --namespace ${K8S_NAMESPACE} ${RELEASE} -o jsonpath='{.spec.ports[0].nodePort}')
 
-echo "This settings file has secrets!
+echo "\# This settings file has secrets!
 
 export MYSQL_ROOT_PASSWORD='$MYSQL_ROOT_PASSWORD'
 export MYSQL_HOST='$MYSQL_HOST'
