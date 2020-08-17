@@ -9,6 +9,8 @@ This is the primary webapp for handling user authentication and sending game dat
 
 ## Build
 
+To build the docker container, see the parent readme.  
+
 ```
 gradle build
 ```
@@ -33,33 +35,13 @@ curl localhost:8080/users/add \
   -d bio=blah%20blah
 ```
 
+
 ## Publish to Artifactory
 
 ```
 gradle artifactoryPublish -Partifactory_user=$USER -Partifactory_password=$ARTIFACTORY_PASSWORD_TRINETCO
 ```
 
+## Deploy to Helm
 
-## Boot via Docker
-
-```
-docker build -t registry.njax.org/TriNetCo/NetGrid-java-api .
-docker push registry.njax.org/TriNetCo/NetGrid-java-api
-
-docker run \
-  -p 8080:8080 \
-  -e MYSQL_HOST=$MYSQL_HOST \
-  -e MYSQL_PORT=$MYSQL_PORT \
-  -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
-  registry.njax.org/TriNetCo/NetGrid-java-api
-```
-
-
-## Boot via Helm
-
-```
-cd helm/
-helm upgrade --install --atomic \
-  --set-string mysql_root_password=${MYSQL_ROOT_PASSWORD} \
-  netgrid-java-api .
-```
+Please see the parent readme!

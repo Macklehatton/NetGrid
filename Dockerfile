@@ -1,5 +1,8 @@
 FROM gradle:6.5.1-jdk8 AS build
-COPY --chown=gradle:gradle . /home/gradle/src
+
+COPY --chown=gradle:gradle java-api/ /home/gradle/src
+COPY --chown=gradle:gradle java-app-models /home/gradle/java-app-models
+
 WORKDIR /home/gradle/src
 RUN gradle build --no-daemon
 
@@ -12,4 +15,3 @@ RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/app.jar /app/app.jar
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/app.jar"]
-

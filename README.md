@@ -18,6 +18,16 @@ Edit -> Project Settings -> Input Manager -> Vertical -> Gravity = Infinity
 Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 ```
 
+
+## Build
+
+Run these commands in the root to build the containers.
+
+```
+docker build . -t registry.njax.org/trinetco/netgrid/java-api
+docker push registry.njax.org/trinetco/netgrid/java-api
+```
+
 ## Deployment
 
 ###### What do we even deploy?
@@ -32,7 +42,7 @@ Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 
 ```
 pushd charts/helm-mysql && \
-  helm upgrade --install --wait --atomic netgrid-mysql-dev . && \  
+  helm upgrade --install --wait --atomic netgrid-mysql-dev . && \
   popd
 ```
 
@@ -54,6 +64,15 @@ export MYSQL_PORT='$MYSQL_PORT'
 " > .env
 ```
 
+##### Java API
+
+```
+pushd java-api/helm/
+helm upgrade --install --atomic \
+  --set-string mysql_root_password=${MYSQL_ROOT_PASSWORD} \
+  netgrid-java-api .
+popd
+```
 
 ## Provision
 
@@ -74,4 +93,3 @@ pushd liquibase && \
     update && \
   popd
 ```
-
