@@ -1,4 +1,4 @@
-image: registry.njax.org/TriNetCo/NetGrid-java-api
+image: registry.njax.org/trinetco/netgrid/java-api
 imageTag: latest
 hostname: "netgrid.njax.org"
 mysql_host: "netgrid-mysql-dev.default.svc.cluster.local"

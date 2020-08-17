@@ -10,8 +10,8 @@ public class UserEntityTest {
 	@Test
     public void itCanSetAndGetATitleString(){
         UserEntity UserEntity = new UserEntity();
-        UserEntity.setTitle("I'm a title");
-        Assert.assertEquals("I'm a title", UserEntity.getTitle());
+        UserEntity.setName("I'm a name");
+        Assert.assertEquals("I'm a name", UserEntity.getName());
     }
 
 }
