@@ -1,7 +1,4 @@
-import React from 'react';
-import axios from 'axios';
-
-
+import React from "react";
 
 function User(props) {
   return (
@@ -13,22 +10,21 @@ function User(props) {
   );
 }
 
-
 class UsersList extends React.Component {
   state = {
     error: null,
     isLoaded: false,
-    users: []
+    users: [],
   };
 
   componentDidMount() {
     fetch(`${process.env.REACT_APP_API_URL}/users`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            users: result
+            users: result,
           });
         },
         // Note: it's important to handle errors here
@@ -37,10 +33,10 @@ class UsersList extends React.Component {
         (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error,
           });
         }
-      )
+      );
   }
 
   render() {
@@ -56,13 +52,14 @@ class UsersList extends React.Component {
           <h3>Users (x{users.length})</h3>
           <a href="#">Add New</a>
           <ul>
-            {users.map( user => <User {...user} /> )}
+            {users.map((user) => (
+              <User {...user} />
+            ))}
           </ul>
         </>
       );
     }
   }
-
 }
 
 export default UsersList;
