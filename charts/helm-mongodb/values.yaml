@@ -410,7 +410,7 @@ persistence:
 service:
   ## Service type
   ##
-  type: ClusterIP
+  type: NodePort
   ## MongoDB service port
   ##
   port: 27017
@@ -420,7 +420,7 @@ service:
   ## Specify the nodePort value for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   ##
-  nodePort: ""
+  nodePort: "30410"
   ## MongoDB service clusterIP IP
   ##
   # clusterIP: None

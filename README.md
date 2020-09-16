@@ -6,10 +6,9 @@
 - Unity 2019.4.4f1
 - [mysql-connector-java-8.0.19.jar](https://downloads.mysql.com/archives/c-j/) ugh...
 
-
 ## Getting Started
 
-Before you clone, make sure you have git LFS installed or you won't have any textures.  After importing the project into Unity, you may need to make some manual changes in order for movement to work correctly.
+Before you clone, make sure you have git LFS installed or you won't have any textures. After importing the project into Unity, you may need to make some manual changes in order for movement to work correctly.
 
 ```
 Edit -> Project Settings -> Input Manager -> Horizontal -> Gravity = Infinity
@@ -17,7 +16,6 @@ Edit -> Project Settings -> Input Manager -> Horizontal -> Sensitivity = Infinit
 Edit -> Project Settings -> Input Manager -> Vertical -> Gravity = Infinity
 Edit -> Project Settings -> Input Manager -> Vertical -> Sensitivity = Infinity
 ```
-
 
 ## Build
 
@@ -33,6 +31,7 @@ docker push registry.njax.org/trinetco/netgrid/java-api
 ###### What do we even deploy?
 
 - MySql Database Server (on k8s)
+- MongoDB Database Server (on k8s)
 - Java API (on k8s)
 - Unity Server (Mirror) (on k8s)
 
@@ -64,6 +63,33 @@ export MYSQL_PORT='$MYSQL_PORT'
 " > .env
 ```
 
+##### MongoDB Server Deployment
+
+###### Conduct Deployment
+
+```
+pushd charts/helm-mongodb && \
+  helm dependency update && \
+  helm upgrade --install --wait --atomic netgrid-mongodb-dev . && \
+  popd
+```
+
+###### Export Variables
+
+```
+export K8S_NAMESPACE=default
+export RELEASE=netgrid-mongodb-dev
+
+export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace ${K8S_NAMESPACE} ${RELEASE} -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+export MONGODB_PORT=$(kubectl get svc --namespace ${K8S_NAMESPACE} ${RELEASE} -o jsonpath='{.spec.ports[0].nodePort}')
+
+
+echo "
+export MONGODB_ROOT_PASSWORD='$MONGODB_ROOT_PASSWORD'
+export MONGODB_PORT='$MONGODB_PORT'
+" >> .env
+```
+
 ##### Java API
 
 ```
@@ -80,8 +106,6 @@ popd
 
 - DNS Routes
 - Liquibase tables/ data to MySql server
-
-
 
 ##### Liquibase table/ data provisioning
 
