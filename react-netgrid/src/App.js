@@ -17,8 +17,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/users" component={EasyUsersPage} />
-        // <Route path="/users" component={UsersPage} />
+        <Route path="/users" component={UsersPage} />
+        // <Route path="/users" component={EasyUsersPage} />
         <Route path="/users/:slug" component={ManageUserPage} />
         <Route path="/user" component={ManageUserPage} />
         <Route component={PageNotFound} />

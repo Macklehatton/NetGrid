@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as userActions from "../../app/actions/userActions";
 import propTypes from "prop-types";
 import { bindActionCreators } from "redux";
+import { toast } from "react-toastify";
+
 import UserList from "./UserList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../../common/Spinner";
-import { toast } from "react-toastify";
 
-import * as userSliceActions from "./usersSlice";
+import * as userSliceActions from "./userSlice";
 
 export class EasyUsersPage extends React.Component {
   state = {
@@ -19,7 +19,7 @@ export class EasyUsersPage extends React.Component {
     const { users, actions } = this.props;
 
     if (users.length === 0) {
-      actions.newLoadUsers().catch((error) => {
+      actions.loadUsers().catch((error) => {
         alert("Loading users failed" + error);
       });
     }
@@ -37,7 +37,6 @@ export class EasyUsersPage extends React.Component {
   };
 
   render() {
-    console.log(this.props.users);
     return (
       <>
         {this.state.redirectToAddCoursePage && <Redirect to="/user" />}
@@ -76,18 +75,9 @@ EasyUsersPage.propTypes = {
 // an action being sent to a reducer modifieing state.users
 function mapStateToProps(state) {
   return {
-    // courses:
-    //   state.authors.length === 0
-    //     ? []
-    //     : state.courses.map((course) => {
-    //         return {
-    //           ...course,
-    //           authorName: state.authors.find((a) => a.id === course.authorId)
-    //             .name,
-    //         };
-    //       }),
     users: state.users.users,
-    loading: state.apiCallsInProgress > 0,
+    userSlice: state.users,
+    loading: state.users.loading === "pending",
   };
 }
 
@@ -95,8 +85,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      loadUsers: bindActionCreators(userActions.loadUsers, dispatch),
-      newLoadUsers: bindActionCreators(userSliceActions.fetchAll, dispatch),
+      loadUsers: bindActionCreators(userSliceActions.fetchAll, dispatch),
     },
   };
 }

@@ -1,52 +1,93 @@
-import React, {useEffect , useSelector, useDispatch} from "react";
+import React, {useEffect, useState} from "react";
 
 import { connect } from "react-redux";
 import propTypes from "prop-types";
 import { bindActionCreators } from "redux";
+import { toast } from "react-toastify";
 
-// import {
-//   fetchAll,
-// } from "./usersSlice";
+import UserList from "./UserList";
+import { Redirect } from "react-router-dom";
+import Spinner from "../../common/Spinner";
 
+import * as userSliceActions from "./userSlice";
 
-// TODO: Get the users from the db... via a service???
+const UsersPage = ({
+  users,
+  actions,
+  ...props
+}) => {
+  const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
-// fetchUsers
-let myUser = "pew"
+  useEffect(() => {
+    if (users.length === 0) {
+      actions.loadUsers().catch((error) => {
+        alert("Loading users failed" + error);
+      });
+    }
+  });
 
-const UsersPage = () => {
-  const { users, loading, error } = useSelector(state => state.users)
-  const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   debugger;
-  //   myUser = "OK"
-  // });
-
+  const handleDeleteCourse = (user) => {
+    // const userWantsToDelete = confirm("Are you sure?");
+    const userWantsToDelete = true;
+    if (userWantsToDelete) {
+      toast.success("Course deleted");
+      this.props.actions.deleteCourse(user).catch((error) => {
+        toast.error("Delete failed. " + error.message, { autoClose: false });
+      });
+    }
+  };
 
   return (
     <>
-      <h1>Users Page</h1>
-      <div>Idk: {myUser} okok</div>
+      {redirectToAddCoursePage && <Redirect to="/user" />}
+      <h2>Users</h2>
+      {props.loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <button
+            style={{ marginBottom: 20 }}
+            className="btn btn-primary add-course"
+            onClick={() => setRedirectToAddCoursePage(true)}
+          >
+            Add Course
+          </button>
+
+
+          <UserList
+            onDeleteClick={handleDeleteCourse}
+            users={users}
+          />
+        </>
+      )}
     </>
   );
 };
 
+UsersPage.propTypes = {
+  actions: propTypes.object.isRequired,
+  users: propTypes.array.isRequired,
+  loading: propTypes.bool.isRequired,
+};
+
+// Redux will magically call this when our state.users object changes following
+// an action being sent to a reducer modifieing state.users
 function mapStateToProps(state) {
   return {
-    users: state.users,
+    users: state.users.users,
+    userSlice: state.users,
+    loading: state.users.loading === "pending",
   };
 }
 
-function mapDispatchToProps(dispatch) {return {}}
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: {
-//       loadUsers: bindActionCreators(fetchAll, dispatch),
-//     },
-//   };
-// }
+// this fancy method gets installed into the component's props for you per the export line below
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      loadUsers: bindActionCreators(userSliceActions.fetchAll, dispatch),
+    },
+  };
+}
 
 // export default UsersPage;
 export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
