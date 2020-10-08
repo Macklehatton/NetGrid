@@ -1,5 +1,5 @@
 import { handleResponse, handleError } from "./apiUtils";
-const baseUrl = process.env.API_URL + "/users/";
+const baseUrl = process.env.REACT_APP_API_URL + "/users/";
 
 
 export default {

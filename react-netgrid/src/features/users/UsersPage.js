@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useEffect , useSelector, useDispatch} from "react";
 
 import { connect } from "react-redux";
 import propTypes from "prop-types";
 import { bindActionCreators } from "redux";
 
-import {
-  fetchAll,
-} from "./usersSlice";
+// import {
+//   fetchAll,
+// } from "./usersSlice";
 
 
 // TODO: Get the users from the db... via a service???
@@ -14,12 +14,14 @@ import {
 // fetchUsers
 let myUser = "pew"
 
-const UsersPage = ({ users }) => {
+const UsersPage = () => {
+  const { users, loading, error } = useSelector(state => state.users)
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    debugger;
-    myUser = "OK"
-  });
+  // useEffect(() => {
+  //   debugger;
+  //   myUser = "OK"
+  // });
 
 
   return (
@@ -36,13 +38,15 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadUsers: bindActionCreators(fetchAll, dispatch),
-    },
-  };
-}
+function mapDispatchToProps(dispatch) {return {}}
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: {
+//       loadUsers: bindActionCreators(fetchAll, dispatch),
+//     },
+//   };
+// }
 
 // export default UsersPage;
 export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
