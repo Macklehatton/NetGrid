@@ -4,6 +4,9 @@
     <include file= "changelogs/tables/users_create.sql" />
     <include file= "changelogs/data/changelog-ref-data.xml" />
 
+    <include file= "changelogs/tables/users_alter_0001.sql" />
+
+
     <changeSet id="tag-1.0" author="demo" >
         <tagDatabase tag="1.0" />
     </changeSet>
