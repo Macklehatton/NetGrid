@@ -10,11 +10,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-// public interface UserRepository extends JpaRepository<UserEntity,Integer> {
 @Repository
-public interface UserRepository extends CrudRepository<UserEntity,Integer> {
+// public interface UserRepository extends CrudRepository<UserEntity,Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-
+    // UserEntity findByEmail(String email);
+    // UserEntity findByName(String name);
 
     // @Query(value = "Select * from users where id = ?1", nativeQuery = true)
     // public UserEntity findId(int id);
