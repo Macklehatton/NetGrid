@@ -9,8 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 // @SpringBootApplication // (scanBasePackages={"org.njax.trinetco.netgrid.java.app.models"})
 @SpringBootApplication
 // @ComponentScan(basePackages = {"org.njax.trinetco.netgrid.java.app.models.version", "org.njax.trinetco.netgrid.java.api"})
-@EntityScan("org.njax.trinetco.netgrid.java.app.models")
-@EnableJpaRepositories("org.njax.trinetco.netgrid.java.app.models")
+@ComponentScan(basePackages = {"org.njax.trinetco.netgrid.java.app.services.MyUserDetailsService"})
+@EntityScan(basePackages= {"org.njax.trinetco.netgrid.java.app.models"})
+@EnableJpaRepositories(basePackages= {"org.njax.trinetco.netgrid.java.app.models","org.njax.trinetco.netgrid.java.app.repositories"})
 public class Main {
 
     public static void main(String[] args) {

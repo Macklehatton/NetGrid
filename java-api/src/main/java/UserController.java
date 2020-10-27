@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.njax.trinetco.netgrid.java.app.models.UserRepository;
+import org.njax.trinetco.netgrid.java.app.repositories.UserRepository;
 import org.njax.trinetco.netgrid.java.app.models.UserEntity;
 
 @Controller // This means that this class is a Controller
