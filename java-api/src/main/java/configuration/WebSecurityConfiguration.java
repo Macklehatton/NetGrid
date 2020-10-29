@@ -1,6 +1,6 @@
 package org.njax.trinetco.netgrid.java.api.configuration;
 
-import org.njax.trinetco.netgrid.java.app.services.MyUserDetailsService;
+import org.njax.trinetco.netgrid.java.api.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-// @Order(1)
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 

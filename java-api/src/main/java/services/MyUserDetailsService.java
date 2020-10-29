@@ -1,4 +1,4 @@
-package org.njax.trinetco.netgrid.java.app.services;
+package org.njax.trinetco.netgrid.java.api.services;
 
 import org.njax.trinetco.netgrid.java.app.models.Role;
 import org.njax.trinetco.netgrid.java.app.models.UserEntity;

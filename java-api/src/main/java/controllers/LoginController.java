@@ -3,7 +3,7 @@ package org.njax.trinetco.netgrid.java.api.controllers;
 import javax.validation.Valid;
 
 import org.njax.trinetco.netgrid.java.app.models.UserEntity;
-import org.njax.trinetco.netgrid.java.app.services.UserService;
+import org.njax.trinetco.netgrid.java.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
