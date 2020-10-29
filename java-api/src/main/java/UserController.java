@@ -15,7 +15,7 @@ import org.njax.trinetco.netgrid.java.app.repositories.UserRepository;
 import org.njax.trinetco.netgrid.java.app.models.UserEntity;
 
 @Controller // This means that this class is a Controller
-@CrossOrigin // enable cors
+@CrossOrigin
 @RequestMapping(path="/users")
 public class UserController {
     @Autowired // This means to get the bean called UserRepository
@@ -39,7 +39,7 @@ public class UserController {
         return "Saved";
     }
 
-    @GetMapping(path="")
+    @GetMapping(value={"/", ""})
     public @ResponseBody Iterable<UserEntity> getAllUsers() {
         // This returns a JSON or XML with the users
         return UserRepository.findAll();
