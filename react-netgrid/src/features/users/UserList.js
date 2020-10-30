@@ -7,7 +7,7 @@ const UserList = ({ users, onDeleteClick }) => (
     <thead>
       <tr>
         <th>Name</th>
-        <th>Is Kind</th>
+        <th>Email</th>
         <th>Bio</th>
         <th />
       </tr>
@@ -19,7 +19,7 @@ const UserList = ({ users, onDeleteClick }) => (
             <td>
               <Link to={"/user/" + user.id}>{user.name}</Link>
             </td>
-            <td>{user.is_kind.toString()}</td>
+            <td>{user.email}</td>
             <td>{user.bio}</td>
             <td>
               <button
