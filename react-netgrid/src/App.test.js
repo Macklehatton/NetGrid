@@ -14,5 +14,5 @@ test("renders learn react link", () => {
     </Provider>
   );
 
-  expect(getByText(/the home page/i)).toBeInTheDocument();
+  expect(getByText(/Welcome to NetGrid/i)).toBeInTheDocument();
 });

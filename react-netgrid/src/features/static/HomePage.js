@@ -9,7 +9,7 @@ const HomePage = () => {
       <img src={logo} width="100" className="App-logo" alt="logo" />
       <div>Register to play for free!</div>
 
-      <div class="debug">
+      <div className="debug">
         <div>API_URL: {process.env.REACT_APP_API_URL} </div>
       </div>
     </>
