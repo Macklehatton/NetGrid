@@ -26,12 +26,12 @@ const UsersPage = ({
     }
   });
 
-  const handleDeleteCourse = (user) => {
+  const handleDeleteUser = (user) => {
     // const userWantsToDelete = confirm("Are you sure?");
     const userWantsToDelete = true;
     if (userWantsToDelete) {
-      toast.success("Course deleted");
-      this.props.actions.deleteCourse(user).catch((error) => {
+      toast.success("User deleted");
+      actions.deleteUser(user.id).catch((error) => {
         toast.error("Delete failed. " + error.message, { autoClose: false });
       });
     }
@@ -55,7 +55,7 @@ const UsersPage = ({
 
 
           <UserList
-            onDeleteClick={handleDeleteCourse}
+            onDeleteClick={handleDeleteUser}
             users={users}
           />
         </>
@@ -85,6 +85,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadUsers: bindActionCreators(userSliceActions.fetchAll, dispatch),
+      deleteUser: bindActionCreators(userSliceActions.deleteUser, dispatch),
     },
   };
 }

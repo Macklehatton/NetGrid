@@ -1,18 +1,17 @@
 import React from "react";
 import userApi from "../../api/userApi";
-
-
-const myfunc = () => {
-  userApi.fetchAllUsers();
-}
+import logo from '../../common/logo.png';
 
 const HomePage = () => {
   return (
     <>
-      <h1>Home Page</h1>
-      <div>I'm the home page!</div>
-      <div>API_URL: {process.env.REACT_APP_API_URL} </div>
-      <button onClick={myfunc}>push</button>
+      <h1>Welcome to NetGrid</h1>
+      <img src={logo} width="100" className="App-logo" alt="logo" />
+      <div>Register to play for free!</div>
+
+      <div class="debug">
+        <div>API_URL: {process.env.REACT_APP_API_URL} </div>
+      </div>
     </>
   );
 };

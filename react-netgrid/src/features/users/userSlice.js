@@ -11,6 +11,14 @@ export const fetchAll = createAsyncThunk(
   }
 )
 
+export const deleteUser = createAsyncThunk(
+  'users/deleteUser',
+  async (userId, thunkAPI) => {
+    const response = await userApi.deleteUser(userId)
+    return response
+  }
+)
+
 export const userSlice = createSlice({
   name: 'users',
   initialState: {
@@ -37,6 +45,9 @@ export const userSlice = createSlice({
         state.error = action.error
         state.currentRequestId = undefined
       }
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      //state.entities.push(action.payload)
     }
   }
 });

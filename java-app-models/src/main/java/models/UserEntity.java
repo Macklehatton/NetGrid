@@ -19,7 +19,7 @@ public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "email")
     // @Email(message = "*Please provide a valid Email")

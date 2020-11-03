@@ -13,10 +13,12 @@ import java.util.List;
 
 @Repository
 // public interface UserRepository extends CrudRepository<UserEntity,Integer> {
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     UserEntity findByEmail(String email);
     UserEntity findByName(String name);
+
+    // deleteById(Integer id);
 
     // @Query(value = "Select * from users where id = ?1", nativeQuery = true)
     // public UserEntity findId(int id);
