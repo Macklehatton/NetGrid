@@ -10,7 +10,7 @@ INSERT INTO users(id, name, bio, is_kind, email, password, created_at, updated_a
               'Mario',         -- name
               'Great jumper',  -- bio
               1,               -- is_kind
-              'a@b.com',       -- email
+              'mario@a.com',       -- email
               '$2a$10$kRR3XA1b9i8KnU.0URldleMVdB1g/vcjiSeBpKJMY5fONw.roTLBi',        -- password 123456
               NOW(),           -- created_at
               NOW()            -- updated_at
@@ -24,7 +24,7 @@ INSERT INTO users(id, name, bio, is_kind, email, password, created_at, updated_a
               'Luigi',         -- name
               'Another good jumper',  -- bio
               1,               -- is_kind
-              'a@b.com',       -- email
+              'luigi@a.com',       -- email
               '$2a$10$kRR3XA1b9i8KnU.0URldleMVdB1g/vcjiSeBpKJMY5fONw.roTLBi',        -- password
               NOW(),           -- created_at
               NOW()            -- updated_at
@@ -37,7 +37,7 @@ INSERT INTO users(id, name, bio, is_kind, email, password, created_at, updated_a
               'Bowser',        -- name
               'Not such a jumper here',  -- bio
               0,               -- is_kind
-              'a@b.com',       -- email
+              'bowser@a.com',       -- email
               '$2a$10$kRR3XA1b9i8KnU.0URldleMVdB1g/vcjiSeBpKJMY5fONw.roTLBi',        -- password
               NOW(),           -- created_at
               NOW()            -- updated_at

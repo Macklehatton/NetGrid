@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./features/static/HomePage";
+import LoginPage from "./features/static/LoginPage";
 import AboutPage from "./features/static/AboutPage";
 import Header from "./features/static/Header";
 import PageNotFound from "./features/static/PageNotFound";
@@ -15,6 +16,7 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/users" component={UsersPage} />
         <Route path="/users/:slug" component={ManageUserPage} />

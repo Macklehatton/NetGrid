@@ -13,22 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
 
 @Controller
+@CrossOrigin
 public class LoginController {
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
-    public ModelAndView login(){
+    public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         return modelAndView;
     }
 
     @GetMapping(value="/registration")
-    public ModelAndView registration(){
+    public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
         UserEntity user = new UserEntity();
         modelAndView.addObject("user", user);
@@ -67,7 +72,7 @@ public class LoginController {
     }
 
     @RequestMapping(value="/admin/home", method = RequestMethod.GET)
-    public ModelAndView home(){
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserEntity user = userService.findUserByName(auth.getName());
@@ -75,6 +80,16 @@ public class LoginController {
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
         return modelAndView;
+    }
+
+
+    // This is who you're logged in as currently...
+    @RequestMapping(value="/user", method = RequestMethod.GET)
+    public ResponseEntity<UserEntity> user() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity user = userService.findUserByName(auth.getName());
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }
