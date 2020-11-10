@@ -44,31 +44,31 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         String loginPage = "/login";
         String logoutPage = "/logout";
 
-        http.
-                cors().and()
-                .authorizeRequests()
+        http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(loginPage).permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/api/services/controller/user/login").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/users/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and().csrf().disable()
+                // .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                .formLogin()
-                .loginPage(loginPage)
-                .loginPage("/")
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
-                .usernameParameter("user_name")
-                .passwordParameter("password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
-                .logoutSuccessUrl(loginPage).and().exceptionHandling();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                ;
+
+                // .formLogin()
+                // .loginPage(loginPage)
+                // .loginPage("/")
+                // .failureUrl("/login?error=true")
+                // .defaultSuccessUrl("/admin/home")
+                // .usernameParameter("user_name")
+                // .passwordParameter("password")
+                // .and().logout()
+                // .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
+                // .logoutSuccessUrl(loginPage).and().exceptionHandling();
     }
 
     @Override
