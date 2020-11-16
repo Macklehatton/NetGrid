@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./LoginPage.css";
+import loginApi from "../../api/loginApi";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,38 +16,19 @@ export default function Login() {
     fetch('http://localhost:8080/user')
       .then(response => response.body())
       .then(data => {
-        debugger;
-        setCurrentUser = data.name;
+        setCurrentUser(data.name);
       })
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    // /login
-    var formData = new FormData();
-    formData.append('user_name', 'mario');
-    formData.append('password', '123456');
-
-    fetch('http://localhost:8080/login', {
-        method: 'POST',
-        body: new URLSearchParams(formData) })
-      .then(response => {
-                  response.json()
-                  console.log("login successful")
-              })
-      .catch(e => console.warn(e))
-
-    // fetch('http://localhost:8080/login', {
-    //   method: 'POST',
-    //   body: formData })
-    //   .then(response => {
-    //       // debugger;
-    //       // response.headers.get('Set-Cookie');
-    //       response.json();
-    //     })
-    //   .catch(error => console.error('Error:', error))
-    //   .then(response => console.log('Success:', JSON.stringify(response)))
+    loginApi.login(email, password)
+      .then( nameToken => {
+        setCurrentUser(nameToken.name)
+        localStorage.setItem('currentUserName', nameToken.name)
+        localStorage.setItem('currentUserToken', nameToken.token)
+        console.log(nameToken.token);
+      });
   }
 
   return (
@@ -75,7 +57,7 @@ export default function Login() {
       </form>
 
       <div>
-        You are currently logged in as <span></span>
+        You are currently logged in as <span>{currentUser}</span>
       </div>
       <div>
         <button onClick={handleClicking}>update if user</button>

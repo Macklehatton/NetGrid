@@ -49,3 +49,5 @@ Please see the parent readme!
 ## Authentication
 
 Ref:  https://medium.com/@gustavo.ponce.ch/spring-boot-spring-mvc-spring-security-mysql-a5d8545d837d
+
+curl -i -XPOST localhost:8080/api/services/controller/user/login -d '{"name": "Mario", "password": "123456"}'
