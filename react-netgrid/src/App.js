@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./features/static/HomePage";
-import LoginPage from "./features/static/LoginPage";
+import LoginPage from "./features/login/LoginPage";
 import AboutPage from "./features/static/AboutPage";
 import Header from "./features/static/Header";
 import PageNotFound from "./features/static/PageNotFound";
