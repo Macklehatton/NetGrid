@@ -28,8 +28,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
                 auth
@@ -50,12 +48,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/api/services/controller/user/login").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/users/**").permitAll()
-                // .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/users/**").hasAuthority("ADMIN")
+                // .antMatchers("/users/**").permitAll()
+                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), userDetailsService))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ;
 
@@ -83,7 +82,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS", "DELETE", "PUT"));
+		configuration.setAllowedHeaders(Arrays.asList("origin", "Content-Type", "accept", "x-requested-with", "Authorization"));
+        configuration.setAllowCredentials(true);
+		configuration.setMaxAge(3600L);
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;

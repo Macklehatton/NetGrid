@@ -9,7 +9,11 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 // @ComponentScan(basePackages = {"org.njax.trinetco.netgrid.java.app.models.version", "org.njax.trinetco.netgrid.java.api"})
-@ComponentScan(basePackages = {"org.njax.trinetco.netgrid.java.api", "org.njax.trinetco.netgrid.java.app.models.version", "org.njax.trinetco.netgrid.java.api.configuration"})
+@ComponentScan(basePackages = {
+        "org.njax.trinetco.netgrid.java.api",
+        "org.njax.trinetco.netgrid.java.app.models.version",
+        "org.njax.trinetco.netgrid.java.api.configuration"
+})
 @EntityScan(basePackages= {"org.njax.trinetco.netgrid.java.app.models"})
 @EnableJpaRepositories(basePackages= {"org.njax.trinetco.netgrid.java.app.repositories"})
 public class Main {
