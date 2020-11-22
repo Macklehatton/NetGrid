@@ -1,4 +1,4 @@
-import { handleResponse, handleError } from "./apiUtils";
+import { handleError } from "./apiUtils";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 
@@ -16,8 +16,8 @@ async function handleLoginResponse(response) {
 }
 
 export default {
-  login: function(username, password) {
-    let data = {name: "Mario", password: "123456"}
+  login: function(creds, password) {
+    let data = { name: creds.email, password: creds.password }
     return fetch(baseUrl + "/api/services/controller/user/login"
     , { method: 'post'
     , body: JSON.stringify(data) } )

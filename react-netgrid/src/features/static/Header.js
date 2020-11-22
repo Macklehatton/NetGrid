@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect} from "react";
 
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
@@ -10,8 +10,24 @@ import * as loginSliceActions from "../login/loginSlice";
 const Header = ({currentUserName, actions, ...props}) => {
   const activeStyle = { color: "#F15B2A" };
 
+
+  useEffect(() => {
+    console.log("I used header effects");
+  });
+
+  function checkExp() {
+    if (!loginSliceActions.loggedInWithUnexpiredToken()) {
+      alert("THE TOKEN IS EXPIRED, I SHOULD LOG YOU OUT.");
+    } else {
+      let expirationDate = new Date(parseInt(localStorage.getItem("currentUserTokenExpiration")) * 1000 );
+      let msLeft = expirationDate - new Date();
+      let secondsLeft = msLeft/ 1000;
+      alert("There are " + secondsLeft + " more seconds left on this token.");
+    }
+  }
+
   function LoginNavItem() {
-    if (currentUserName != "") {
+    if (currentUserName !== null) {
       return (
         <>
           <button onClick={actions.logout}>
@@ -44,13 +60,15 @@ const Header = ({currentUserName, actions, ...props}) => {
       </NavLink>
       {" | "}
       <LoginNavItem />
+      {" | "}
+      <button onClick={checkExp}>Check Expiration</button>
     </nav>
   );
 };
 
 Header.propTypes = {
   actions: propTypes.object.isRequired,
-  currentUserName: propTypes.object.isRequired,
+  // currentUserName: propTypes.object.isRequired,
 };
 
 // Redux will magically call this when our state.users object changes following

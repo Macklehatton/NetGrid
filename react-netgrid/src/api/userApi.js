@@ -1,14 +1,32 @@
 import { handleResponse, handleError } from "./apiUtils";
 const baseUrl = process.env.REACT_APP_API_URL;
 
+const headers = {}
+
+function getHeaders() {
+  let token = localStorage.getItem("currentUserToken");
+  if (token) {
+    headers.Authorization = "Bearer " + token
+    // headers.Custom = "yes"
+  }
+
+  return headers;
+}
+
 export default {
   fetchAllUsers: function() {
-    return fetch(baseUrl + "/users/")
-      .then(handleResponse)
-      .catch(handleError);
+    let params = {
+      method: 'get',
+      headers: new Headers(getHeaders()),
+      mode: 'cors',
+    }
+
+    return fetch(baseUrl + "/users/", params)
+      .then(handleResponse);
   },
   deleteUser: function(userId) {
-    return fetch(baseUrl + "/users/" + userId, { method: 'delete' })
+    let params = { method: 'delete', headers: getHeaders() }
+    return fetch(baseUrl + "/users/" + userId, params)
       .then(handleResponse)
       .catch(handleError);
   }

@@ -1,4 +1,5 @@
 export async function handleResponse(response) {
+
   if (response.ok) return response.json();
   if (response.status === 400) {
     // So, a server-side validation error occurred.
@@ -6,6 +7,18 @@ export async function handleResponse(response) {
     const error = await response.text();
     throw new Error(error);
   }
+
+  if (response.status === 401) {
+    const json = await response.json();
+    if (json.error === "Token Expired") {
+      throw new Error("Token Expired");
+    }
+  }
+
+  if (response.status === 403) {
+    throw new Error("Unauthorized");
+  }
+
   throw new Error("Network response was not ok.");
 }
 

@@ -83,7 +83,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("*"));
 		configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS", "DELETE", "PUT"));
-		configuration.setAllowedHeaders(Arrays.asList("origin", "Content-Type", "accept", "x-requested-with", "Authorization"));
+		configuration.setAllowedHeaders(Arrays.asList("origin", "Content-Type", "accept", "x-requested-with", "Authorization", "Token-Expired"));
         configuration.setAllowCredentials(true);
 		configuration.setMaxAge(3600L);
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

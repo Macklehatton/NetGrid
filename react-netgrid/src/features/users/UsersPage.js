@@ -10,21 +10,32 @@ import { Redirect } from "react-router-dom";
 import Spinner from "../../common/Spinner";
 
 import * as userSliceActions from "./userSlice";
+import * as loginSliceActions from "../login/loginSlice";
 
 const UsersPage = ({
   users,
+  loading,
   actions,
   ...props
 }) => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
   useEffect(() => {
-    if (users.length === 0) {
-      actions.loadUsers().catch((error) => {
-        alert("Loading users failed" + error);
-      });
+    if ( weShouldQueryUsers() ) {
+      actions.loadUsers()
+        .catch((error) => {
+          alert("Loading users failed HOW DO I CATCH HERE"); });
     }
+
+    loginSliceActions.logoutIfExpired();
   });
+
+  function weShouldQueryUsers() {
+    let myConst = loginSliceActions.loggedInWithUnexpiredToken();
+    return ( users.length === 0
+             && loading === "idle"
+             && loginSliceActions.loggedInWithUnexpiredToken() );
+  }
 
   const handleDeleteUser = (user) => {
     // const userWantsToDelete = confirm("Are you sure?");
@@ -41,8 +52,12 @@ const UsersPage = ({
     <>
       {redirectToAddCoursePage && <Redirect to="/user" />}
       <h2>Users</h2>
-      {props.loading ? (
+      {props.loading === "pending" ? (
         <Spinner />
+      ) : props.loading === "Unauthorized" || !loginSliceActions.weAreLoggedIn() ? (
+        <div>Unauthorized, please log in to a user with the correct permissions.</div>
+      ) : users.length === 0 && !loginSliceActions.loggedInWithUnexpiredToken() ? (
+        <div>Expired Token</div>
       ) : (
         <>
           <button
@@ -50,7 +65,7 @@ const UsersPage = ({
             className="btn btn-primary add-course"
             onClick={() => setRedirectToAddCoursePage(true)}
           >
-            Add Course
+            Add User
           </button>
 
 
@@ -67,7 +82,7 @@ const UsersPage = ({
 UsersPage.propTypes = {
   actions: propTypes.object.isRequired,
   users: propTypes.array.isRequired,
-  loading: propTypes.bool.isRequired,
+  loading: propTypes.string.isRequired,
 };
 
 // Redux will magically call this when our state.users object changes following
@@ -76,7 +91,7 @@ function mapStateToProps(state) {
   return {
     users: state.users.users,
     userSlice: state.users,
-    loading: state.users.loading === "pending",
+    loading: state.users.loading,
   };
 }
 
@@ -86,6 +101,7 @@ function mapDispatchToProps(dispatch) {
     actions: {
       loadUsers: bindActionCreators(userSliceActions.fetchAll, dispatch),
       deleteUser: bindActionCreators(userSliceActions.deleteUser, dispatch),
+      logout: bindActionCreators(loginSliceActions.logout, dispatch),
     },
   };
 }

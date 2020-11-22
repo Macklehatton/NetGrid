@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./LoginPage.css";
-import loginApi from "../../api/loginApi";
 
 import { connect } from "react-redux";
 import propTypes from "prop-types";
@@ -20,7 +19,7 @@ function LoginPage({currentUserName, actions, ...props}) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    actions.login(email, password)
+    actions.login({email, password})
   }
 
   return (
@@ -29,7 +28,7 @@ function LoginPage({currentUserName, actions, ...props}) {
       {props.loading ? (
         <Spinner />
       ) : (
-        currentUserName == "" ? (
+        currentUserName === "" ? (
           <div>State: Logged out </div>
         ) : (
           <div>State: Logged in :) </div>
@@ -67,7 +66,7 @@ function LoginPage({currentUserName, actions, ...props}) {
 
 LoginPage.propTypes = {
   actions: propTypes.object.isRequired,
-  currentUserName: propTypes.object.isRequired,
+  // currentUserName: propTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

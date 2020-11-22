@@ -2,6 +2,7 @@ package org.njax.trinetco.netgrid.java.api.configuration;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -39,9 +40,20 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+        UsernamePasswordAuthenticationToken authentication = null;
+        try {
+            authentication = getAuthentication(req);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (TokenExpiredException e) {
+            System.out.println(e.getMessage());
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.getOutputStream().println("{ \"error\": \"Token Expired\" }");
+            res.getOutputStream().flush();
+            res.getOutputStream().close();
+            return;
+        }
+
         chain.doFilter(req, res);
     }
 
@@ -50,11 +62,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
 
         if (token != null) {
-            // parse the token.
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
+                        .build()
+                        .verify(token.replace(TOKEN_PREFIX, ""))
+                        .getSubject();
 
             if (user != null) {
                 UserDetails details = userDetailsService.loadUserByUsername(user);

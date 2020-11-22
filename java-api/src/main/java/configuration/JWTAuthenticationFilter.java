@@ -56,10 +56,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
 
+        Date expTime = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
+        String username = ((User) auth.getPrincipal()).getUsername();
 
         String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .withIssuer("segaAuth")
+                .withSubject(username)
+                .withClaim("Hammond", "hampster")
+                .withExpiresAt(expTime)
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
         String body = ((User) auth.getPrincipal()).getUsername() + " " + token;

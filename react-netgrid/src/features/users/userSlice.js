@@ -41,9 +41,21 @@ export const userSlice = createSlice({
     [fetchAll.rejected]: (state, action) => {
       const { requestId } = action.meta
       if (state.loading === 'pending' && state.currentRequestId === requestId) {
-        state.loading = 'idle'
-        state.error = action.error
-        state.currentRequestId = undefined
+        if (action.error.message === "Unauthorized") {
+          state.loading = 'Unauthorized'
+          state.error = action.error
+          state.currentRequestId = undefined
+        }
+        else if (action.error.message === "Token Expired") {
+          state.loading = 'idle'
+          state.error = action.error
+          state.currentRequestId = undefined
+        }
+        else {
+          state.loading = 'idle'
+          state.error = action.error
+          state.currentRequestId = undefined
+        }
       }
     },
     [deleteUser.fulfilled]: (state, action) => {

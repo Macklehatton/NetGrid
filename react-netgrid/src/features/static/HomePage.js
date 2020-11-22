@@ -1,5 +1,4 @@
 import React from "react";
-import userApi from "../../api/userApi";
 import logo from '../../common/logo.png';
 
 const HomePage = () => {
