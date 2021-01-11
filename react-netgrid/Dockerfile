@@ -8,6 +8,5 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-COPY entrypoint.sh /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
