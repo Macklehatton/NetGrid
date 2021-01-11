@@ -30,6 +30,12 @@ mysql -h netgrid-mysql-dev.default.svc.cluster.local -u root -p
 ```
 docker build . -t registry.njax.org/destructocats/liquibase_client
 docker push registry.njax.org/destructocats/liquibase_client
+docker run \
+  -e MYSQL_USER=${MYSQL_USER} \
+  -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
+  -e MYSQL_HOST=${MYSQL_HOST} \
+  -e MYSQL_PORT=${MYSQL_PORT} \
+  registry.njax.org/destructocats/liquibase_client
 ```
 
 
@@ -94,7 +100,7 @@ liquibase \
 ```
 
 
-###### Header for
+###### Header for some of the change scripts
 
 ```
 --liquibase formatted sql

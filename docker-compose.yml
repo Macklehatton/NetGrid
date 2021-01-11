@@ -1,0 +1,42 @@
+version: '3'
+
+# https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
+
+services:
+  java:
+    build: ./
+    image: "registry.njax.org/trinetco/netgrid/java-api"
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_HOST: "db"
+      MYSQL_PORT: "3306"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "db"
+
+  db_liquibase:
+    build: ./liquibase
+    image: "registry.njax.org/destructocats/liquibase_client"
+    restart: "no"
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_HOST: "db"
+      MYSQL_PORT: "3306"
+    depends_on:
+      - "db"
+
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "30409:3306"
+    env_file:
+      - ./.env
+    volumes:
+      - my-db:/var/lib/mysql
+
+volumes:
+  my-db:

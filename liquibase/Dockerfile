@@ -1,3 +1,5 @@
+# Note: this container is meant to run along with the docker-compose.yml file in the parent dir
+
 FROM liquibase/liquibase
 
 # Root level setup
@@ -6,21 +8,16 @@ WORKDIR /liquibase/jdbc
 RUN wget https://github.com/TriNetCo/NetGrid/raw/master/liquibase/mysql-connector-java-8.0.19.jar
 
 USER root
-RUN apt-get update && \
-      apt-get install -y vim tmux git mysql-client
 
-WORKDIR /liquibase
-RUN git clone https://github.com/thenotary/dotfiles
+ADD liquibase.properties .
+ADD changelogs/ ./changelogs/
 
-# User level setup
-USER 101
-WORKDIR /liquibase/dotfiles
-RUN /bin/bash make.sh
+RUN apt-get update && apt-get install -y netcat
 
-##USER liquibase
-WORKDIR /app
+#RUN apt-get update && \
+#      apt-get install -y vim tmux git mysql-client
 
-ENTRYPOINT []
-CMD []
+USER liquibase
 
-ENTRYPOINT [ "" ]
+COPY entrypoint.sh /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
