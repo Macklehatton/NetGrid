@@ -3,6 +3,23 @@ version: '3'
 # https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
 
 services:
+
+  react:
+    build: ./react-netgrid
+    image: "registry.njax.org/trinetco/netgrid/react-netgrid"
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./.env
+    environment:
+      REACT_APP_API_URL: "http://127.0.0.1:8080"
+      NETGRID_DOMAIN: "netgrid.njax.org.local"
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    depends_on:
+      - "java"
+
   java:
     build: ./
     image: "registry.njax.org/trinetco/netgrid/java-api"
