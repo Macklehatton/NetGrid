@@ -28,7 +28,7 @@ def actual_suffix = snapshot_suffix ? "-${snapshot_suffix}" : ""
 version = "${version}${actual_suffix}"
 group = "${project.artifact_groupId}"
 
-apply plugin: 'application'
+// apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
@@ -38,7 +38,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: "io.freefair.lombok"
 
 
-mainClassName='org.njax.trinetco.netgrid.java.app.models.Main'
+def mainClassName = 'org.njax.trinetco.netgrid.java.app.models.Main'
 
 repositories {
     mavenCentral()
