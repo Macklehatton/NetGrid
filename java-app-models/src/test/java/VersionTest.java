@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.junit.Before;
 import org.mockito.Mock;
 import static org.mockito.BDDMockito.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
 
 // @RunWith(SpringRunner.class)
 public class VersionTest {
@@ -25,7 +27,7 @@ public class VersionTest {
 	@Test
     public void itCanGetItsVersion(){
         String expectedVersion = "org.njax.trinetco.netgrid:java-app-models:FROM_SOURCE";
-        Assert.assertEquals(expectedVersion, version.info());
+        assertThat(version.info(), containsString(expectedVersion));
     }
 
 }

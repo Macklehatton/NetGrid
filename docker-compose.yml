@@ -34,11 +34,13 @@ services:
       - "8080:8080"
     depends_on:
       - "db"
+    volumes:
+      - ./java-api:/home/gradle/src
+      - ./java-app-models:/home/gradle/java-app-models
 
   db_liquibase:
     build: ./liquibase
     image: "registry.njax.org/destructocats/liquibase_client"
-    restart: "no"
     env_file:
       - ./.env
     environment:
